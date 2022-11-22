@@ -7,6 +7,7 @@ import useBooking from "./useBooking";
 import MachineSection, {
   IMachineSectionProps,
 } from "@view/compositions/MachineSection";
+import { IUser } from "types/User";
 
 const StyledSection = styled.section`
   width: "100%";
@@ -39,21 +40,30 @@ export interface IBookingProps {
   UserSectionProps: IUserSectionProps;
   MachineSectionProps: IMachineSectionProps;
   buttons: IPrimaryButtonProps[];
+  selectedUser: IUser | null;
 }
 
 const Booking = () => {
-  const { UserSectionProps, MachineSectionProps, buttons } = useBooking();
+  const { UserSectionProps, MachineSectionProps, buttons, selectedUser } =
+    useBooking();
   return (
     <main>
       <StyledSection>
         <h1>Booking</h1>
         <UserSection {...UserSectionProps} />
-        <ButtonContainer>
-          {buttons.map((item) => (
-            <PrimaryButton {...item} />
-          ))}
-        </ButtonContainer>
-        <MachineSection {...MachineSectionProps} />
+        {!Boolean(Object.keys(selectedUser ?? {}).length) && (
+          <h4>Please select a user</h4>
+        )}
+        {Boolean(Object.keys(selectedUser ?? {}).length) && (
+          <>
+            <ButtonContainer>
+              {buttons.map((item) => (
+                <PrimaryButton {...item} />
+              ))}
+            </ButtonContainer>
+            <MachineSection {...MachineSectionProps} />
+          </>
+        )}
       </StyledSection>
     </main>
   );

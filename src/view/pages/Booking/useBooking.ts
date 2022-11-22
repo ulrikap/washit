@@ -1,27 +1,25 @@
 import useDatabase, { TWashType } from "@application/useDatabase";
-import { IUser } from "models/User";
+import useUsers from "@application/useUsers";
+import useWaitlist from "@application/useWaitlist";
+import { IUser } from "types/User";
 import { IBookingProps } from "./Booking";
 
 const useBooking = (): IBookingProps => {
+  const {} = useWaitlist();
+  const { selectedUser, setSelectedUser, users, createUser } = useUsers();
   const {
     machines,
-    users,
-    createUser,
     reserveMachine,
-    selectedUser,
-    setSelectedUser,
-    getAvailableMachine,
+    cancelReservation,
+    getAvailableMachines,
+    requestMachine,
   } = useDatabase();
 
-  const handleMachineReservationClick = (washType: TWashType) => {
-    const availableMachine = getAvailableMachine();
-
-    if (!availableMachine) {
-      alert("No available machines!");
-    }
-  };
+  const handleMachineReservationClick = (washType: TWashType) =>
+    requestMachine({ user: selectedUser as IUser, washType });
 
   return {
+    selectedUser,
     buttons: [
       {
         onClick: () => handleMachineReservationClick("cookWash"),
@@ -55,6 +53,8 @@ const useBooking = (): IBookingProps => {
             user: selectedUser as IUser,
             washType: value,
           }),
+        onClickCancel: () => cancelReservation(item?.id),
+        isCorrectUser: item?.bookedByUser?.id === selectedUser?.id,
         status: Boolean(item?.bookedUntil) ? "busy" : "available",
         statusExplanation: Boolean(item?.bookedUntil)
           ? `Busy for the next ${item.bookedUntil - Date.now()}`

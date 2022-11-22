@@ -1,7 +1,7 @@
 import ClickableCard, {
   IClickableCardProps,
 } from "@view/components/ClickableCard";
-import { IUser } from "models/User";
+import { IUser } from "types/User";
 import styled from "styled-components";
 
 const CardContainer = styled.section`

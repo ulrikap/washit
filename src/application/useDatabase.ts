@@ -1,29 +1,8 @@
-import { IUser } from "models/User";
-import { IWashingMachine } from "models/WashingMachine";
+import { IUser } from "types/User";
+import { IWashingMachine } from "types/WashingMachine";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 export type TWashType = "cookWash" | "fabricWash" | "handWash";
-
-const firstNames = [
-  "Jonas",
-  "Bob",
-  "Berit",
-  "Anne",
-  "Hanna",
-  "Ulrik",
-  "Rudolf",
-];
-
-const lastNames = [
-  "Blodstrupmoen",
-  "Løken",
-  "Gyldepris",
-  "Gulmedal",
-  "Felgen",
-  "Haraldsson",
-  "Etternavnsen",
-];
 
 const initialState: IWashingMachine[] = [...Array(12).keys()].map((item) => ({
   bookedUntil: 0,
@@ -45,32 +24,43 @@ const getWashDurationInMinutes = (wash: TWashType): number => {
 };
 
 const useDatabase = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [machines, setMachines] = useState<IWashingMachine[]>(initialState);
-  const [waitList, setWaitList] = useState<IUser[]>([]);
+  const getAvailableMachines = () => machines.find((item) => !item.bookedUntil);
 
-  const createUser = (): IUser => {
-    const user: IUser = {
-      firstName:
-        firstNames[Math.floor(Math.random() * (firstNames.length - 1) + 1)],
-      lastName:
-        lastNames[Math.floor(Math.random() * (lastNames.length - 1) + 1)],
-      id: uuidv4(),
-    };
-
-    setUsers((prev) => [...prev, user]);
-    return user;
+  const cancelReservation = (id: number) => {
+    setMachines((prev) =>
+      prev.map((item) =>
+        item?.id === id
+          ? (initialState.find(
+              (localItem) => localItem.id === id
+            ) as IWashingMachine)
+          : item
+      )
+    );
   };
 
-  const getAvailableMachine = () => machines.find((item) => !item.bookedUntil);
+  const requestMachine = ({
+    user,
+    washType,
+  }: {
+    user: IUser;
+    washType: TWashType;
+  }): IWashingMachine => {
+    const id =
+      machines.find((item) => {
+        if (item.bookedUntil <= Date.now()) {
+          return true;
+        }
+      })?.id ?? -1;
 
-  const requestMachine = (washType: TWashType): number =>
-    machines.find((item) => {
-      if (item.bookedUntil <= Date.now()) {
-        return true;
-      }
-    })?.id ?? -1;
+    if (id !== -1) {
+      reserveMachine({ user, washType, machineID: id });
+      return machines.find((item) => item.id === id) as IWashingMachine;
+    } else {
+      alert("No machine available for reservation!");
+      throw Error("No machine available for reservation");
+    }
+  };
 
   const reserveMachine = ({
     user,
@@ -96,26 +86,13 @@ const useDatabase = () => {
     );
   };
 
-  const addToWaitlist = (user: IUser) => setWaitList((prev) => [...prev, user]);
-  const getNextUserFromWaitlist = () => {
-    const user = waitList[0];
-    setWaitList((prev) => prev.filter((item) => item.id !== user.id));
-    return user;
-  };
-
   return {
     machines,
-    users,
-    selectedUser,
-    waitList,
 
+    cancelReservation,
     reserveMachine,
-    createUser,
-    setSelectedUser,
-    getAvailableMachine,
+    getAvailableMachines,
     requestMachine,
-    addToWaitlist,
-    getNextUserFromWaitlist,
   };
 };
 

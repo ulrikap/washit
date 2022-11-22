@@ -32,9 +32,18 @@ export interface ICardProps {
   status: "available" | "busy";
   statusExplanation: string;
   onClick: (e: React.MouseEvent<unknown>, value: TWashType) => void;
+  onClickCancel: (e: React.MouseEvent<unknown>) => void;
+  isCorrectUser: boolean;
 }
 
-const Card = ({ title, status, statusExplanation, onClick }: ICardProps) => {
+const Card = ({
+  title,
+  status,
+  statusExplanation,
+  onClick,
+  onClickCancel,
+  isCorrectUser,
+}: ICardProps) => {
   return (
     <StyledCard>
       <h2>{title}</h2>
@@ -53,6 +62,9 @@ const Card = ({ title, status, statusExplanation, onClick }: ICardProps) => {
             Handwash
           </PrimaryButton>
         </ButtonRow>
+      )}
+      {status === "busy" && isCorrectUser && (
+        <PrimaryButton onClick={onClickCancel}>Cancel</PrimaryButton>
       )}
     </StyledCard>
   );
