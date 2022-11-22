@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import logo from "../../assets/logo.png";
 
 const StyledHeadline = styled.h1`
   font-family: CodeNextBold;
@@ -20,9 +19,10 @@ const StyledWrapper = styled.div`
 
 export interface IHeadlineProps {
   title: string;
+  logo: string;
 }
 
-const Headline = ({ title }: IHeadlineProps) => {
+const Headline = ({ title, logo }: IHeadlineProps) => {
   return (
     <StyledWrapper>
       <StyledHeadline children={title} />

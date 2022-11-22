@@ -5,6 +5,7 @@ const StyledListWrapper = styled.ul`
   display: flex;
   list-style: none;
   gap: 5rem;
+  justify-self: center;
 `;
 
 export interface IMenuItemsProps {

@@ -1,5 +1,5 @@
-import { HEADER_HEIGHT } from "@view/compositions/Header";
 import styled from "styled-components";
+import { HEADER_HEIGHT } from "@view/compositions/Header";
 
 export interface IOverviewProps {}
 
@@ -16,7 +16,7 @@ const Overview = () => {
   return (
     <main>
       <StyledSection>
-        <p>This is where I would put the overview, if I had one :)</p>
+        <p>This is where I would put the landing page, if I had one :)</p>
       </StyledSection>
     </main>
   );
