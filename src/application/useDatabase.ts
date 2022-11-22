@@ -1,11 +1,12 @@
 import { IUser } from "types/User";
 import { IWashingMachine } from "types/WashingMachine";
 import { useState } from "react";
+import { add } from "date-fns";
 
 export type TWashType = "cookWash" | "fabricWash" | "handWash";
 
 const initialState: IWashingMachine[] = [...Array(12).keys()].map((item) => ({
-  bookedUntil: 0,
+  bookedUntil: null,
   bookedByUser: null,
   id: item,
 }));
@@ -25,7 +26,6 @@ const getWashDurationInMinutes = (wash: TWashType): number => {
 
 const useDatabase = () => {
   const [machines, setMachines] = useState<IWashingMachine[]>(initialState);
-  const getAvailableMachines = () => machines.find((item) => !item.bookedUntil);
 
   const cancelReservation = (id: number) => {
     setMachines((prev) =>
@@ -48,7 +48,7 @@ const useDatabase = () => {
   }): IWashingMachine => {
     const id =
       machines.find((item) => {
-        if (item.bookedUntil <= Date.now()) {
+        if ((item.bookedUntil as Date) <= new Date()) {
           return true;
         }
       })?.id ?? -1;
@@ -71,14 +71,14 @@ const useDatabase = () => {
     washType: TWashType;
     machineID: number;
   }) => {
-    const date = new Date();
-    date.setMinutes(date.getMinutes() + getWashDurationInMinutes(washType));
     setMachines((prev) =>
       prev.map((item) =>
         item?.id === machineID
           ? {
               ...item,
-              bookedUntil: date.getTime(),
+              bookedUntil: add(new Date(), {
+                minutes: getWashDurationInMinutes(washType),
+              }),
               bookedByUser: user,
             }
           : item
@@ -91,7 +91,6 @@ const useDatabase = () => {
 
     cancelReservation,
     reserveMachine,
-    getAvailableMachines,
     requestMachine,
   };
 };

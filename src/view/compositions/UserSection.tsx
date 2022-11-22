@@ -1,14 +1,11 @@
 import ClickableCard, {
   IClickableCardProps,
 } from "@view/components/ClickableCard";
-import { IUser } from "types/User";
 import styled from "styled-components";
 
 const CardContainer = styled.section`
   display: flex;
-  margin: 50px;
-  max-width: 50vw;
-  min-width: 700px;
+  margin: 10px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;

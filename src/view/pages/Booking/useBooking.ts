@@ -4,16 +4,13 @@ import useWaitlist from "@application/useWaitlist";
 import { IUser } from "types/User";
 import { IBookingProps } from "./Booking";
 
+import { intervalToDuration } from "date-fns";
+
 const useBooking = (): IBookingProps => {
   const {} = useWaitlist();
   const { selectedUser, setSelectedUser, users, createUser } = useUsers();
-  const {
-    machines,
-    reserveMachine,
-    cancelReservation,
-    getAvailableMachines,
-    requestMachine,
-  } = useDatabase();
+  const { machines, reserveMachine, cancelReservation, requestMachine } =
+    useDatabase();
 
   const handleMachineReservationClick = (washType: TWashType) =>
     requestMachine({ user: selectedUser as IUser, washType });
@@ -57,7 +54,17 @@ const useBooking = (): IBookingProps => {
         isCorrectUser: item?.bookedByUser?.id === selectedUser?.id,
         status: Boolean(item?.bookedUntil) ? "busy" : "available",
         statusExplanation: Boolean(item?.bookedUntil)
-          ? `Busy for the next ${item.bookedUntil - Date.now()}`
+          ? `Busy for the next ${
+              intervalToDuration({
+                start: new Date(),
+                end: item.bookedUntil as Date,
+              }).hours
+            }:${
+              intervalToDuration({
+                start: new Date(),
+                end: item.bookedUntil as Date,
+              }).minutes
+            }`
           : "",
       })),
     },

@@ -2,6 +2,6 @@ import type { IUser } from "./User";
 
 export interface IWashingMachine {
   bookedByUser: IUser | null;
-  bookedUntil: number;
+  bookedUntil: Date | null;
   id: number;
 }

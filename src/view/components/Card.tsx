@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PrimaryButton from "./PrimaryButton";
 
 const StyledCard = styled.div`
-  width: 500px;
+  max-width: 500px;
   justify-self: center;
   align-self: center;
   background-color: #f09d51;

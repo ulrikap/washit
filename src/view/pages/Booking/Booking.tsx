@@ -24,18 +24,6 @@ const ButtonContainer = styled.section`
   gap: 20px;
 `;
 
-const CardContainer = styled.section`
-  display: flex;
-  margin: 50px;
-  max-width: 50vw;
-  min-width: 700px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
-  gap: 10px;
-`;
-
 export interface IBookingProps {
   UserSectionProps: IUserSectionProps;
   MachineSectionProps: IMachineSectionProps;
