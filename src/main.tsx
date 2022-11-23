@@ -1,9 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Entrypoint from './Entrypoint'
+import React from "react";
+import ReactDOM from "react-dom";
+import Entrypoint from "./Entrypoint";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const rootNode = document.getElementById("root") as HTMLElement;
+
+ReactDOM.render(
   <React.StrictMode>
     <Entrypoint />
-  </React.StrictMode>
-)
+  </React.StrictMode>,
+  rootNode
+);
