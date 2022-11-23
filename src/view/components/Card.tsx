@@ -52,15 +52,18 @@ const Card = ({
       <p>{statusExplanation}</p>
       {status !== "busy" && (
         <ButtonRow>
-          <PrimaryButton onClick={(e) => onClick(e, "cookWash")}>
-            Cookwash
-          </PrimaryButton>
-          <PrimaryButton onClick={(e) => onClick(e, "fabricWash")}>
-            Fabric wash
-          </PrimaryButton>
-          <PrimaryButton onClick={(e) => onClick(e, "handWash")}>
-            Handwash
-          </PrimaryButton>
+          <PrimaryButton
+            onClick={(e) => onClick(e, "cookWash")}
+            children={"Cookwash"}
+          />
+          <PrimaryButton
+            onClick={(e) => onClick(e, "fabricWash")}
+            children={"fabricWash"}
+          />
+          <PrimaryButton
+            onClick={(e) => onClick(e, "handWash")}
+            children={"handWash"}
+          />
         </ButtonRow>
       )}
       {status === "busy" && isCorrectUser && (

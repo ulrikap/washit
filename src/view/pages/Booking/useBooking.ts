@@ -7,15 +7,21 @@ import { IBookingProps } from "./Booking";
 import { intervalToDuration } from "date-fns";
 
 const useBooking = (): IBookingProps => {
+  // not implemented
   const {} = useWaitlist();
+
   const { selectedUser, setSelectedUser, users, createUser } = useUsers();
+  
   const { machines, reserveMachine, cancelReservation, requestMachine } =
     useDatabase();
 
   const handleMachineReservationClick = (washType: TWashType) =>
     requestMachine({ user: selectedUser as IUser, washType });
 
+  const isUserSelected = Boolean(Object.keys(selectedUser ?? {}).length);
+
   return {
+    isUserSelected,
     selectedUser,
     buttons: [
       {

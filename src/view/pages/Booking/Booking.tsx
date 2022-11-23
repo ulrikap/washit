@@ -29,20 +29,25 @@ export interface IBookingProps {
   MachineSectionProps: IMachineSectionProps;
   buttons: IPrimaryButtonProps[];
   selectedUser: IUser | null;
+  isUserSelected: boolean;
 }
 
 const Booking = () => {
-  const { UserSectionProps, MachineSectionProps, buttons, selectedUser } =
-    useBooking();
+  const {
+    UserSectionProps,
+    MachineSectionProps,
+    buttons,
+    selectedUser,
+    isUserSelected,
+  } = useBooking();
+
   return (
     <main>
       <StyledSection>
         <h1>Booking</h1>
         <UserSection {...UserSectionProps} />
-        {!Boolean(Object.keys(selectedUser ?? {}).length) && (
-          <h4>Please select a user</h4>
-        )}
-        {Boolean(Object.keys(selectedUser ?? {}).length) && (
+        {!isUserSelected && <h4>Please select a user</h4>}
+        {isUserSelected && (
           <>
             <ButtonContainer>
               {buttons.map((item) => (
