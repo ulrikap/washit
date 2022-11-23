@@ -10,11 +10,11 @@ const CardContainer = styled.section`
   gap: 10px;
 `;
 
-export interface IMachineSectionProps {
+export interface ISectionMachinesProps {
   items: ICardProps[];
 }
 
-const MachineSection = ({ items }: IMachineSectionProps) => {
+const SectionMachines = ({ items }: ISectionMachinesProps) => {
   return (
     <>
       <h4>All Machines</h4>
@@ -27,4 +27,4 @@ const MachineSection = ({ items }: IMachineSectionProps) => {
   );
 };
 
-export default MachineSection;
+export default SectionMachines;

@@ -1,7 +1,7 @@
 import useDatabase, { TWashType } from "@application/useDatabase";
 import useUsers from "@application/useUsers";
 import useWaitlist from "@application/useWaitlist";
-import { IUser } from "types/User";
+import { IUser } from "@domain/types/User";
 import { IBookingProps } from "./Booking";
 
 import { intervalToDuration } from "date-fns";

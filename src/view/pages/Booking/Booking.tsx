@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import PrimaryButton, {
-  IPrimaryButtonProps,
-} from "@view/components/PrimaryButton";
-import UserSection, { IUserSectionProps } from "@view/compositions/UserSection";
+  IButtonPrimaryProps,
+} from "@view/components/ButtonPrimary";
+import UserSection, {
+  ISectionUsersProps,
+} from "@view/compositions/SectionUsers";
 import useBooking from "./useBooking";
 import MachineSection, {
-  IMachineSectionProps,
-} from "@view/compositions/MachineSection";
-import { IUser } from "types/User";
+  ISectionMachinesProps,
+} from "@view/compositions/SectionMachines";
+import { IUser } from "@domain/types/User";
 
 const StyledSection = styled.section`
   width: "100%";
@@ -25,9 +27,9 @@ const ButtonContainer = styled.section`
 `;
 
 export interface IBookingProps {
-  UserSectionProps: IUserSectionProps;
-  MachineSectionProps: IMachineSectionProps;
-  buttons: IPrimaryButtonProps[];
+  UserSectionProps: ISectionUsersProps;
+  MachineSectionProps: ISectionMachinesProps;
+  buttons: IButtonPrimaryProps[];
   selectedUser: IUser | null;
   isUserSelected: boolean;
 }

@@ -1,6 +1,6 @@
 import { TWashType } from "@application/useDatabase";
 import styled from "styled-components";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./ButtonPrimary";
 
 const StyledCard = styled.div`
   max-width: 500px;

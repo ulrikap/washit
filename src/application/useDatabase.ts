@@ -1,5 +1,5 @@
-import { IUser } from "types/User";
-import { IWashingMachine } from "types/WashingMachine";
+import { IUser } from "@domain/types/User";
+import { IWashingMachine } from "@domain/types/WashingMachine";
 import { useState } from "react";
 import { add } from "date-fns";
 

@@ -20,7 +20,7 @@ const StyledCard = styled.div`
   }
 `;
 
-export interface IClickableCardProps {
+export interface ICardClickableProps {
   title: string;
   subtitle: string;
   subtitle2: string;
@@ -28,13 +28,13 @@ export interface IClickableCardProps {
   selected: boolean;
 }
 
-const ClickableCard = ({
+const CardClickable = ({
   title,
   subtitle,
   subtitle2,
   onClick,
   selected,
-}: IClickableCardProps) => {
+}: ICardClickableProps) => {
   return (
     <StyledCard
       onClick={onClick}
@@ -47,4 +47,4 @@ const ClickableCard = ({
   );
 };
 
-export default ClickableCard;
+export default CardClickable;

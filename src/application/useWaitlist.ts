@@ -1,4 +1,4 @@
-import { IUser } from "types/User";
+import { IUser } from "@domain/types/User";
 import { useState } from "react";
 
 const useWaitlist = () => {

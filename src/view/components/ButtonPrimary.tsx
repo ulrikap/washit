@@ -26,13 +26,13 @@ const StyledButton = styled.button`
   }
 `;
 
-export interface IPrimaryButtonProps {
+export interface IButtonPrimaryProps {
   onClick?: (e: React.MouseEvent<unknown>) => void;
   children?: React.ReactNode;
 }
 
-const PrimaryButton = (props: IPrimaryButtonProps) => {
+const ButtonPrimary = (props: IButtonPrimaryProps) => {
   return <StyledButton {...props} />;
 };
 
-export default PrimaryButton;
+export default ButtonPrimary;

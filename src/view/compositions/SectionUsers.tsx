@@ -1,6 +1,6 @@
 import ClickableCard, {
-  IClickableCardProps,
-} from "@view/components/ClickableCard";
+  ICardClickableProps,
+} from "@view/components/CardClickable";
 import styled from "styled-components";
 
 const CardContainer = styled.section`
@@ -13,12 +13,12 @@ const CardContainer = styled.section`
   gap: 10px;
 `;
 
-export interface IUserSectionProps {
+export interface ISectionUsersProps {
   createUser: () => void;
-  items: IClickableCardProps[];
+  items: ICardClickableProps[];
 }
 
-const UserSection = ({ createUser, items }: IUserSectionProps) => {
+const SectionUsers = ({ createUser, items }: ISectionUsersProps) => {
   return (
     <>
       <h4>All users</h4>
@@ -32,4 +32,4 @@ const UserSection = ({ createUser, items }: IUserSectionProps) => {
   );
 };
 
-export default UserSection;
+export default SectionUsers;
